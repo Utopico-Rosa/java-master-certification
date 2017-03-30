@@ -1,0 +1,44 @@
+
+-----------------
+Table of Contents
+-----------------
+1 Design choiced made
+2 Problems perceived, the issues surrouding them, value judgements, and the decisions made
+3 Uncertainties regarding the project, and the decisions made when resolving them
+
+----------------------
+1 Design choices made:
+----------------------
+The application has four layers. A Presentation Layer (package "suncertify.presentation"). An Integration Layer (package "suncertify.integration"). A Business Rules Layer (package "suncertify.db"). And a Persistence Layer (package "suncertify.persistence").
+
+The presentation layer contains all the graphical user-interfaces needed by the system. As ordered Java Swing was used. Swing already uses the MVC pattern. It has Components that delegate their logic to their Models, and delegate their View rendering to ther ComponentUIs. The Listeners act as the Controllers between the Models and the ComponentUIs of the Components.
+According to the specifications:"Your user interface should be designed with the expectation of future functionality enhancements, and it should establish a framework that will support this with minimal disruption to the users when this occurs" and "You are permitted to use any IDE tool you choose, but you must not submit any code that is not your own work(...)". Hence, I used non-generated LayoutManagers that offer the greatest flexibility (GridBagLayout, BorderLayout, FlowLayout) instead of absolute positioning (setting the absolute x and y values in relation to the upper-left corner of the Jframe container´s content pane) the components on the JFrame container.
+According to the specification:"Non-Networked Mode (...) must use the (...) GUI from the networked form (...)". To this end, I used an inheriting strategy, where the graphical components are all assembled in one abstract class "ClientFrame" that has template methods, that call on fine-grained methods implemented in the subclasses (LocalClientFrame and RemoteClientFrame) differently, depending if the client is local or remote.
+
+The integration layer has Delegate/Controller classes that act as gateways between the Presentation Layer classes and the Business Rules Layer classes. It has two types of classes. One for local, non-distributed access, and another for remote, network distributed access.
+The local, non-distributed classes are simple pass trough classes, that delegate their logic to the Business Rules Layer. 
+For the remote, networked distributed classes, the specification said: "You have a choice regarding the network connection protocol. You must use either serialized objects over a simple socket connection, or RMI". Since RMI is basically a wire protocol built upon serialized objects over a simple socket connection, and no performance or load requirements were enunciated, I choose RMI. If performace or load requiremens were given the socket connection option would be more suitable, because in RMI you have no control on the wire protocol and so you can´t make it leaner, and you have no control on thread management.
+Since the specification said: "You must provide all classes pre-installed so that no dynamic class downloading occurs" I generated a remote server´s stub ("DataRemote_Stub") through RMIC, so as to avoid dynamic class loading of the remote server on the remote´s client side.
+
+
+The business rules layer has the domain classes and the business rules use cases.
+I this layer I used a Singleton cache, because I/O to storage devices is expensive in terms of clock cycles. The data in the cache only gets persisted to the database file when the server shuts down.
+On the core classes, the cache that also deals with the business logic use cases ("Data"), and the one that deals with lock management ("LockManager"), I used some thread-safe data structures and synchronized methods because of thread interference and memory visibility problems. With synchronized methods only one thread has access to synchronized code blocks (locked whith the same monitor lock) at a time and all the actions that happen on it happen-before another thread acquires a lock on the same or another synchronized code block (locked with the same monitor lock). The thread-safe data structure used doesn´t cause thread contention (so they are faster that pure synchronized data structures), but they avoid memory consistency errors, because all the actions a thread performs on that data structure happen-before actions performed by another thread.
+This layer has a Data Transfer Object ("CustomerRecord") used to aggregate the data needed for a less expensive round-trip time between the client and the server. This layer also uses a Facade ("SchemaVerifier#verify") that does all the confirmation step that indeed the database file the user choose is the correct one.
+
+The persistence layer deals with the access, reading and decoding of the database file, and also with the encoding and writing of the cache´s data back to the database file.
+No special notes on this layer are warranted.
+
+-------------------------------------------------------------------------------------------
+2 Problems perceived, the issues surrounding them, value judgments, and the decisions made:
+-------------------------------------------------------------------------------------------
+I thought of implementing an Observer design pattern, through callback servers (making all the remote clients also remote servers, and passing them as arguments to the remote server, so as when a change ocurred on the cache, all the remote clients would be instantaneously notified), so as to all the remote, distributed clients had "real-time" feedback on updates by other users, but the specification didn´t request real-time updates on the clients' window tables, so it seemed overkill to go that way.
+
+The specification said "All text values, and all fields (...)" are "null terminated if less than the maximum length for the field". The "problem" is that the original database file has the fields space
+character terminated (Ascii code decimal 32) when they are less that the maximum length of the field, and not null terminated (Ascii code decimal 0) as the specification said. So the first time the program reads the original database file all fields space character terminated are transformed to fields null character terminated. The first time the cache´s data is persisted back to the database file, this transformation is reflected. 
+
+----------------------------------------------------------------------------------
+3 Uncertainties regarding the project, and the decisions made when resolving them:
+----------------------------------------------------------------------------------
+The uncertainties were basically if I could use Java SE7 classes, for example the java.nio packages, and if one could use the compiler enhancements of Java 7 (try-with-resources statements, multi-Catch exceptions, Strings as input and case types in switch statements) and Java 8 (lambda expressions, method references, default methods on interfaces). Since this Project Assignment is called "Java SE 6 Developer Certified Master Assignment 1Z0-855" I decided not to gamble and did not use any post Java 7 onwards functionality.
+

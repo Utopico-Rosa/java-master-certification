@@ -1,0 +1,151 @@
+Bodgitt & Scarper, LLC. User Guide
+
+-----------------
+Table of Contents
+-----------------
+1. Introduction/Summary
+2. Application Overview 
+3. Application Requirements
+4. How to Run the Application
+4.1 Running in Standalone Mode
+4.2 Running in Server Mode
+4.3 Running in Client Mode
+5. How to use the Main Window
+5.1 How to search records
+5.3 Other functionality
+
+-----------------------
+1. Introduction/Summary
+-----------------------
+This user guide enables CSRs of Bodgitt & Scarper to take advantage of a new system for searching client partner companies and booking customers.
+
+-----------------------
+2. Application Overview 
+-----------------------
+This new system enables CSRs to search client partner companies by name and/or location, and for booking customers.
+
+The system is almost entirely graphical based. The only time the CSR may need to use the command line is when starting the system.
+
+Multiple CSRs can access the system at once, and they can run in parallel.
+
+The system has three modes: one to start the remote database server, another to start a local database server and client, and another to start a remote client that connects to the database remote server.
+
+In all this three modes, there´s a setup configuration phase, which can be skipped, after the first run of the system, if on posterior runs, the user wants to use the previous configuration. The system
+saves and remembers the user´s previous configuration.
+
+The system is contained in a file with a .jar extension.
+
+---------------------------
+3. Application Requirements
+---------------------------
+Requires (Java Runtime Environment) JRE version 1.6 or greater installed. You can test if if you already have it installed on your computer by typing "java -version" (whithout the quotes) on the command line. If you don´t have it installed you can get it here: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html. Should the previous link be broken, you can google it by typing "jre download" (whithout the quotes).
+
+If you´re using the database remote server or the remote client that connects to the database remote server, you need an internet connection.
+
+If you´re running the database remote server on your computer, you must disable your computer´s firewall.
+
+-----------------------------
+4. How to Run the Application
+-----------------------------
+The filename you should run is called "runme.jar" (without the quotes). You should type "java -jar runme.jar <mode>" (without the quotes) on the command line, where <mode> is further explained below.
+
+------------------------------
+4.1 Running in Standalone Mode
+------------------------------
+This starts the local database and client.
+
+You should type: "java -jar runme.jar alone" (whithout the quotes) on the command line.
+
+You´ll see a setup configuration window. In this window you must manually type a path to a database file, or press the "Browse" button to search the file on a new window. The default database file that comes with the system is "db-2x1.db" (whithout the quotes). When you´re finished typing or selecting the path to the file, you should press the "Ok" button. If you want to exit the configuration
+setup and exit the program you should press the "Exit" button and then confirm that choice.
+
+If you press "Ok" and the program recognizes you´ve typed the wrong file path or choose the incorrect file, a warning will be shown, and you´ll not be allowed to pass the configuration stage without retyping the file path or choosing another file.
+
+If you have any doubts you can position the mouse pointer over the widgets on the window to receive further hints on how to proceed.
+
+You can press ALT+B to press the "Browse" button whithout a mouse, ALT+O to press the "Ok" button without a mouse, and ALT+E to press the "Exit" button without a mouse.
+
+You can jump between the input text and the buttons, whithout a mouse, by pressing TAB.
+
+You can press the "File" menu on the upper-left corner, where you have pretty much the same options just described earlier. To the press the "File" menu whithout a mouse, you should press ALT+F. Once the "File" menu is open, and you´re not using a mouse, you can press ALT+O, ALT+B, and ALT+E, the same as explained before. As before, if you have any doubt you can position the mouse pointer over the "File" menu or the menu options, to see further hints on how to proceed. 
+
+After the setup phase is completed, you´ll see the main window, as explained below.
+
+--------------------------
+4.2 Running in Server Mode
+--------------------------
+This starts the remote database server.
+
+You should type: "java -jar runme.jar server" (whithout the quotes) on the command line.
+
+You´ll see a setup configuration window. In this window you must manually type a port number in the range 0-65535 (only use ports between 0 and 1023 if you have Administrator privileges). You must manually type a path to a database file, or press the "Browse" button to search the file on a new window. The default database file that comes with the system is "db-2x1.db" (whithout the quotes). When you´re finished typing the port number, and typing or selecting the path to the file, you should press the "Ok" button. If you want to exit the configuration setup and exit the program you should press the "Exit" button and then confirm that choice.
+
+If you press "Ok" and the program recognizes you´ve typed an invalid port number and/or typed the wrong file path or choose the incorrect file, a warning or error message  will be shown, and you´ll not be allowed to pass the configuration stage without retyping the port and/or retyping the file path or choosing another file.
+
+If you have any doubts you can position the mouse pointer over the widgets on the window to receive further hints on how to proceed.
+
+You can press ALT+B to press the "Browse" button whithout a mouse, ALT+O to press the "Ok" button without a mouse, and ALT+E to press the "Exit" button without a mouse.
+
+You can jump between the input text and the buttons, whithout a mouse, by pressing TAB.
+
+You can press the "File" menu on the upper-left corner, where you have pretty much the same options just described earlier. To the press the "File" menu whithout a mouse, you should press ALT+F. Once the "File" menu is open, and you´re not using a mouse, you can press ALT+O, ALT+B, and ALT+E, the same as explained before. As before, if you have any doubt you can position the mouse pointer over the "File" menu or the menu options, to see further hints on how to proceed.
+ 
+After the setup phase is completed, you´ll see a new window, where you´ll see a message status, indicating the setup phase was sucessfully completed, and saying the server is running. In this window you have only one option. To exit the program, and hence stoping the remote database server. You can press the Exit button, or (if without a mouse) press ALT-E. You can do basically the same thing by pressing the "File" menu and then the "Exit" item. To access the "File" menu whithout a mouse, press ALT-F. To press the menu item "Exit" whithout a mouse, press ALT-E. After pressing "Exit" you must confirm your option.
+
+--------------------------
+4.3 Running in Client Mode
+--------------------------
+This starts the remote client that connects to the database remote server.
+
+You should type: "java -jar runme.jar" (whithout the quotes) on the command line. If you prefer, and your operating system (Windows, MAC OS, Linux, etc) is configured to automatically detect the program, which will open a .jar file extension, you can simply double click on the file in your operating system graphical user interface.
+
+You´ll see a setup configuration window. In this window you must manually type a host name or IP number. You must manually type a port number in the range 0-65535. When you´re finished typing the host name or IP number, and typing the port number, you should press the "Ok" button. If you want to exit the configuration setup and exit the program you should press the "Exit" button and then confirm that choice.
+
+If you press "Ok" and the program recognizes you´ve typed an invalid host name or IP number, and/or typed an invalid port number, a warning or error message  will be shown, and you´ll not be allowed to pass the configuration stage without retyping the host name or IP number and/or retyping the port number.
+
+If you have any doubts you can position the mouse pointer over the widgets on the screen to receive further hints on how to proceed.
+
+You can press ALT+O to press the "Ok" button without a mouse, and ALT+E to press the "Exit" button without a mouse.
+
+You can jump between the input text fields and the buttons, whithout a mouse, by pressing TAB.
+
+You can press the "File" menu on the upper-left corner, where you have pretty much the same options just described earlier. To the press the "File" menu whithout a mouse, you should press ALT+F. Once the "File" menu is open, and you´re not using a mouse, you can press ALT+O, and ALT+E, the same as explained before. As before, if you have any doubt you can position the mouse pointer over the "File" menu or the menu options, to see further hints on how to proceed.
+
+After the setup phase is completed, you´ll see the main window, as explained below. 
+
+-----------------------------
+5. How to use the Main Window
+-----------------------------
+This is the main window for the CSR. In it you have a table containing the database customer records, separated by name, location, specialties, size, rate, and owner. Name refers to the name of the subcontractor. Location refers to the locality in which the contractor works. Specialties refers to a comma separated list of types of work the contractor can perform. Size refers to the number of workers available. Rate refers to charge per hour for the subcontractor. Owner refers to the customer id (an 8 digit number). 
+
+In this window you can: search the data for all records, or for records where the name and/or location fields exactly match values specified by the user;
+                        book a selected record;
+
+-------------------------
+5.1 How to search records
+-------------------------
+To search all record, leave the "Name" and "Location" input fields blank and press the "Search" Button or press ALT-S.
+
+To search records by the name of the subcontractor, type the name you´re looking for (case-sensitive) and press the "Search" Button or press ALT-S.
+
+To search records by the locality in which the contractor works, type the location you´re looking for (case-sensitive) and press the "Search" Button or press ALT-S.
+
+To search records by the name of the subcontractor and locality in which the contractor works, type the name and location you´re looking for (case-sensitive) and press the "Search" Button or press ALT-S.
+
+After you initiate a search, the table is refreshed with the results. If no records are found, the table appears empty.
+
+------------------------
+5.2 How to Book a record
+------------------------
+To book a record you must select a row, by clicking that row with you´re mouse pointer, ou by repeatedly pressing TAB until you reach the row you want. The row is considered selected when it´s highlighted.
+Then you must press the "Book" button, or press ALT+B. If you try to book without a row choosen, you will receive a warning message, and be taken back to the main window. After you try to book a record,
+you will see a window where you must type the customer id (an 8 digit number). If you don´t type an eight-digit number, you´ll see a warning message and you will be taken back to the main window. After the booking is done, the table will be refreshed with all the updated customer records. If the subcontractor is already booked, you will see a warning message, and the table will appear refreshed with all
+the updated customer records.
+
+-----------------------
+5.3 Other functionality
+-----------------------
+Besides this functionality you can press "Exit" or ALT-E to exit the system. You can also press the "File" menu or press ALT-F to access the "File" menu. In this menu you have items that correspond to the same funcionality explained earlier. You can press the items on the menu, or press ALT-S, ALT-B, or ALT-E. If you have any doubts you can position the mouse pointer over the widgets on the window to further receive hints on how to proceed. When you exit the system, you are prompted to confirm your option.
+
+You can widen and shrink the width of the table´s columns by positinioning the mouse cursor over their intersection and pulling them to the right or to the left. You can also swap the columns´ order, by pressing them with the mouse pointer and dislocating them to the right or to the left.
+
